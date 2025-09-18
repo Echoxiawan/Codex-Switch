@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Codex Auth 备份管理</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="background-gradient"></div>
+  <div class="app">
+    <header class="app-header">
+      <div class="title-group">
+        <h1>Codex Auth 备份管理</h1>
+        <p class="subtitle"> 自动巡检 · 一键还原与备注管理</p>
+      </div>
+      <button id="refresh-btn" class="btn ghost icon-btn" aria-label="刷新状态">
+        <span class="icon">⟳</span>
+        <span>刷新状态</span>
+      </button>
+    </header>
+
+    <section class="card status-card" id="status-card">
+      <div class="card-header">
+        <h2>目标文件状态</h2>
+        <span id="status-badge" class="badge badge-muted">未知</span>
+      </div>
+      <div class="status-grid">
+        <div>
+          <span class="label">目标路径</span>
+          <span id="status-target" class="mono">-</span>
+        </div>
+        <div>
+          <span class="label">当前大小</span>
+          <span id="status-size">-</span>
+        </div>
+        <div>
+          <span class="label">修改时间</span>
+          <span id="status-mtime">-</span>
+        </div>
+        <div>
+          <span class="label">当前指纹</span>
+          <span id="status-fp" class="mono">-</span>
+        </div>
+        <div>
+          <span class="label">内容哈希</span>
+          <span id="status-hash" class="mono" title="">-</span>
+        </div>
+        <div>
+          <span class="label">最新备份指纹</span>
+          <span id="status-latest-fp" class="mono">-</span>
+        </div>
+        <div>
+          <span class="label">扫描间隔</span>
+          <span id="status-interval">-</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="card stats-card" aria-label="备份摘要">
+      <div class="metric">
+        <span class="metric-label">备份数量</span>
+        <span id="metric-count" class="metric-value">0</span>
+      </div>
+      <div class="metric">
+        <span class="metric-label">最近备份时间</span>
+        <span id="metric-latest" class="metric-value">-</span>
+      </div>
+      <div class="metric">
+        <span class="metric-label">自动扫描状态</span>
+        <span id="metric-auto" class="metric-value">已启用</span>
+      </div>
+    </section>
+
+    <section class="card" id="actions-card">
+      <div class="card-header">
+        <h2>操作中心</h2>
+        <p class="card-subtitle">可输入备注后手动检测或备份；自动备份依旧按配置间隔运行。</p>
+      </div>
+      <div class="actions">
+        <div class="action-group">
+          <label for="remark-input">备份备注（可选，需唯一）</label>
+          <input id="remark-input" type="text" placeholder="例如：手动备份" />
+        </div>
+        <div class="buttons">
+          <button id="scan-btn" class="btn secondary icon-btn">
+            <span class="icon">🔍</span>
+            <span>手动检测</span>
+          </button>
+          <button id="backup-btn" class="btn primary icon-btn">
+            <span class="icon">💾</span>
+            <span>立即备份</span>
+          </button>
+          <button id="codex-btn" class="btn neutral icon-btn">
+            <span class="icon">⚡</span>
+            <span>codex login</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="backups-card">
+      <div class="card-header">
+        <h2>备份记录</h2>
+        <p class="card-subtitle">按时间倒序显示，可快速编辑备注、还原或删除备份。</p>
+      </div>
+      <div class="table-wrapper">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>时间</th>
+              <th>备注</th>
+              <th>内容哈希</th>
+              <th>大小</th>
+              <th>自动</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="backup-tbody">
+            <tr>
+              <td colspan="6" class="empty">暂无备份</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="app-footer">
+      <span>Codex Backup Tool · 本地离线安全守护</span>
+      <span class="footer-hint">浏览器界面将自动刷新关键数据，可随时手动更新。</span>
+    </footer>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <script src="/app.js" type="module"></script>
+</body>
+</html>

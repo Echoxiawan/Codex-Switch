@@ -1,0 +1,8 @@
+{
+  "codex_dir": "~/.codex",
+  "codex_file": "auth.json",
+  "data_dir": "./data",
+  "http_port": "8080",
+  "scan_interval": 10,
+  "auto_open_browser": true
+}
